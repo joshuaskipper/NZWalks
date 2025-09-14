@@ -1,48 +1,5 @@
-﻿
-
-
-
-
-
-
-//// ADD The Validation for the walk controller update and post!!
+﻿//// ADD The Validation for the walk controller update and post!!
 /// All code is below delete when done.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
