@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Models.Domain;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace NZWalks.API.Repositories
@@ -7,7 +8,7 @@ namespace NZWalks.API.Repositories
     public interface IWalkRepository
     {
         Task<Walk> CreateAsync(Walk walk);
-        Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null);
+        Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null, int pageNumber = 1, int pageSize = 1000);
         Task<Walk?> GetByIdAsync(Guid id);
         Task<Walk?> UpdateAsync(Guid id, Walk walk);
         Task<Walk?> DeleteAsync(Guid id);

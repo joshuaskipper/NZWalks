@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
+using System.Globalization;
 
 namespace NZWalks.API.Repositories
 {
@@ -32,24 +33,26 @@ namespace NZWalks.API.Repositories
             return exsitingWalk;
         }
 
-        public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
+        public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null, int pageNumber = 1, int pageSize = 1000)
         {
             var walks =  dbContext.Walks
                 .Include("Region")
                 .Include("Difficulty")
                 .AsQueryable();
 
+            // Filtering
             if (string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
             {
                 if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 {
                     walks = walks.Where(x => x.Name.Contains(filterQuery));
                 }
-                
-                
             }
 
-            return await walks.ToListAsync();
+            // Pagination
+            var skipResults = (pageNumber - 1) * pageSize;
+
+            return await walks.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
         public async Task<Walk?> GetByIdAsync(Guid id)
